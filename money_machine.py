@@ -7,6 +7,24 @@ def clear_console():
     os.system('cls')
 
 
+def print_warning_message():
+    """This function prints warning message if user enters non-numeric inputs"""
+    print(f"\n{'+' * 40}")
+    print("Kindly enter whole number value only.")
+    print(f"{'+' * 40}\n")
+
+
+def take_input(coin_name):
+    """This function take the name of the coin(either Quarters, Dimes, Nickels or Pennies) as a parameter and return
+     the count of the coins as input by the user"""
+    coin_value = ""
+    while not coin_value.isnumeric():
+        coin_value = input(f"How many {coin_name}? : ")
+        if not coin_value.isnumeric():
+            print_warning_message()
+    return int(coin_value)
+
+
 class MoneyMachine:
     CURRENCY = "$"
 
@@ -29,7 +47,7 @@ class MoneyMachine:
         """Returns the total calculated from coins inserted."""
         print("\nPlease insert coins.")
         for coin in self.COIN_VALUES:
-            self.money_received += int(input(f"How many {coin}?: ")) * self.COIN_VALUES[coin]
+            self.money_received += take_input(coin) * self.COIN_VALUES[coin]
         return self.money_received
 
     def make_payment(self, cost):
