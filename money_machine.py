@@ -1,3 +1,12 @@
+import os
+
+import ascii_art
+
+
+def clear_console():
+    os.system('cls')
+
+
 class MoneyMachine:
     CURRENCY = "$"
 
@@ -14,11 +23,11 @@ class MoneyMachine:
 
     def report(self):
         """Prints the current profit"""
-        print(f"Money: {self.CURRENCY}{self.profit}")
+        print(f"Money : {self.CURRENCY}{self.profit}")
 
     def process_coins(self):
         """Returns the total calculated from coins inserted."""
-        print("Please insert coins.")
+        print("\nPlease insert coins.")
         for coin in self.COIN_VALUES:
             self.money_received += int(input(f"How many {coin}?: ")) * self.COIN_VALUES[coin]
         return self.money_received
@@ -28,12 +37,17 @@ class MoneyMachine:
         self.process_coins()
         if self.money_received >= cost:
             change = round(self.money_received - cost, 2)
-            print(f"Here is {self.CURRENCY}{change} in change.")
+            clear_console()
+            print(ascii_art.logo)
+            print(f"\n{'~' * 55}")
+            print(f"Here is {self.CURRENCY}{change} in change. Please collect cash.")
             self.profit += cost
             self.money_received = 0
             return True
         else:
+            print(f"\n{'+' * 46}")
             print("Sorry that's not enough money. Money refunded.")
+            print(f"{'+' * 46}")
             self.money_received = 0
             return False
 
